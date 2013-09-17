@@ -1,0 +1,34 @@
+<RCC>
+  <qresource>
+    <file>scatter.png</file>
+    <file>Pause.png</file>
+    <file>Play.png</file>
+    <file>Stop.png</file>
+    <file>stopAnim.gif</file>
+    <file>clapper.png</file>
+    <file>playAnim.png</file>
+    <file>film.png</file>
+    <file>copy.png</file>
+    <file>cut.png</file>
+    <file>paste.png</file>
+    <file>mesh.png</file>
+    <file>cog.png</file>
+    <file>folder.png</file>
+    <file>image.png</file>
+    <file>object.png</file>
+    <file>ref.png</file>
+    <file>add.png</file>
+    <file>delete.png</file>
+    <file>map.png</file>
+    <file>move.png</file>
+    <file>new.png</file>
+    <file>newproject.png</file>
+    <file>open.png</file>
+    <file>redo.png</file>
+    <file>rotate.png</file>
+    <file>save.png</file>
+    <file>scale.png</file>
+    <file>select.png</file>
+    <file>undo.png</file>
+  </qresource>
+</RCC>

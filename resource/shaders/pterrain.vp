@@ -1,0 +1,177 @@
+attribute vec4 weights;
+attribute vec4 bones;
+
+varying vec4 wpos;
+varying vec3 normal;
+//varying vec4 acolor;
+
+uniform vec2 cellSize;
+uniform mat4 viewMatrix;
+uniform mat4 modelMatrix;
+uniform mat4 boneMatrices[32];
+vec3 mod289(vec3 x) {
+	return x - floor(x * (1.0f / 289.0f)) * 289.0f;
+}
+
+vec2 mod289(vec2 x) {
+	return x - floor(x * (1.0f / 289.0f)) * 289.0f;
+}
+
+vec3 permute(vec3 x) {
+	return mod289(((x*34.0f)+1.0f)*x);
+}
+
+float snoise(vec2 v)
+{
+	const vec4 C = vec4(0.211324865405187,  // (3.0-sqrt(3.0))/6.0
+		0.366025403784439,  // 0.5*(sqrt(3.0)-1.0)
+		-0.577350269189626,  // -1.0 + 2.0 * C.x
+		0.024390243902439); // 1.0 / 41.0
+	// First corner
+	vec2 i  = floor(v + dot(v, vec2(C.y, C.y)) );
+	vec2 x0 = v -   i + dot(i, vec2(C.x, C.x));
+
+	// Other corners
+	vec2 i1;
+	//i1.x = step( x0.y, x0.x ); // x0.x > x0.y ? 1.0 : 0.0
+	//i1.y = 1.0 - i1.x;
+	i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+	// x0 = x0 - 0.0 + 0.0 * C.xx ;
+	// x1 = x0 - i1 + 1.0 * C.xx ;
+	// x2 = x0 - 1.0 + 2.0 * C.xx ;
+	vec4 x12 = vec4(x0.x, x0.y, x0.x, x0.y) + vec4(C.x, C.x, C.z, C.z);
+	x12.x -= i1.x;
+	x12.y -= i1.y;
+
+	// Permutations
+	i = mod289(i); // Avoid truncation effects in permutation
+	vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+		+ i.x + vec3(0.0, i1.x, 1.0 ));
+
+	vec3 m = max(0.5f - vec3(dot(x0,x0), dot(vec2(x12), vec2(x12)), dot(vec2(x12.z, x12.w),vec2(x12.z, x12.w))), 0.0f);
+	m = m*m ;
+	m = m*m ;
+
+	// Gradients: 41 points uniformly over a line, mapped onto a diamond.
+	// The ring size 17*17 = 289 is close to a multiple of 41 (41*7 = 287)
+
+	vec3 x = 2.0f * fract(p * vec3(C.w, C.w, C.w)) - 1.0f;
+	vec3 h = abs(x) - 0.5f;
+	vec3 ox = floor(x + 0.5f);
+	vec3 a0 = x - ox;
+
+	// Normalise gradients implicitly by scaling m
+	// Approximation of: m *= inversesqrt( a0*a0 + h*h );
+	m *= 1.79284291400159f - 0.85373472095314f * ( a0*a0 + h*h );
+
+	// Compute final noise value at P
+	vec3 g;
+	g.x  = a0.x  * x0.x  + h.x  * x0.y;
+	g.y = a0.y * x12.x + h.y * x12.y;
+	g.z = a0.z * x12.z + h.z * x12.w;
+	return 130.0f * dot(m, g);
+}
+
+vec4 calculateVertex(vec4 pos)
+{
+	vec2 loc = vec2(pos.x, pos.z);
+	pos.y = snoise(loc/50.0f)*3*snoise(loc/100.0f)-2; //- pos.x/3.0f;
+	return pos;
+}
+
+vec3 calculateNormal(vec4 pos)
+{
+	float s = 0.01;
+    float tl = calculateVertex(pos + vec4( -s, 0, -s, 0)).y; 
+	float l =  calculateVertex(pos + vec4( -s, 0,  0, 0)).y; 
+	float bl = calculateVertex(pos + vec4( -s, 0,  s, 0)).y;     
+    float t  = calculateVertex(pos + vec4(  0, 0, -s, 0)).y; 
+	float b =  calculateVertex(pos + vec4(  0, 0,  s, 0)).y; 
+    float tr = calculateVertex(pos + vec4(  s, 0, -s, 0)).y; 
+	float r =  calculateVertex(pos + vec4(  s, 0,  0, 0)).y; 
+	float br = calculateVertex(pos + vec4(  s, 0,  s, 0)).y;     
+ 
+    // Compute dx using Sobel:
+    //           -1 0 1 
+    //           -2 0 2
+    //           -1 0 1
+    float dX = tr + 2*r + br -tl - 2*l - bl;
+ 
+    // Compute dy using Sobel:
+    //           -1 -2 -1 
+    //            0  0  0
+    //            1  2  1
+    float dY = bl + 2*b + br -tl - 2*t - tr;
+ 
+    // Build the normalized normal
+	float normalStrength = 16;
+    vec4 N = vec4(normalize(vec3(-dX, -dY, 1.0f / normalStrength)), 1.0f);
+
+    //convert (-1.0 , 1.0) to (0.0 , 1.0), if needed
+    return -(N * 0.5f + 0.5f);
+}
+
+vec3 calculateNormal2(vec4 pos)
+{
+	float s = .01;
+    vec3 tl = calculateVertex(pos + vec4( -s, 0, -s, 0)) - pos;  
+	vec3 l =  calculateVertex(pos + vec4( -s, 0,  0, 0)) - pos; 
+	vec3 bl = calculateVertex(pos + vec4( -s, 0,  s, 0)) - pos;     
+    vec3 t  = calculateVertex(pos + vec4(  0, 0, -s, 0)) - pos; 
+	vec3 b =  calculateVertex(pos + vec4(  0, 0,  s, 0)) - pos; 
+    vec3 tr = calculateVertex(pos + vec4(  s, 0, -s, 0)) - pos; 
+	vec3 r =  calculateVertex(pos + vec4(  s, 0,  0, 0)) - pos; 
+	vec3 br = calculateVertex(pos + vec4(  s, 0,  s, 0)) - pos;     
+ 
+	vec3 n1 = cross(r, t);
+	vec3 n2 = cross(l, b);
+	vec3 n3 = cross(t, l);
+	vec3 n4 = cross(b, r);
+	
+	//return normalize(n2);
+    return normalize((normalize(n1)+normalize(n2)+normalize(n3)+normalize(n4))/4.0f);
+}
+
+void main()
+{
+	//gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;	
+	wpos = modelMatrix * gl_Vertex;	
+	wpos = calculateVertex(wpos);
+	/*
+	vec4 offset = vec4(-.1, 0, .1, 0);
+	vec4 vLeft = calculateVertex(wpos - offset);
+	vec4 vRight = calculateVertex(wpos + offset);
+	offset = vec4(.1, 0, .1, 0);
+	vec4 vTop = calculateVertex(wpos - offset);
+	vec4 vBottom = calculateVertex(wpos + offset);
+	wpos = calculateVertex(wpos);
+
+	vec3 n1 = normalize(-cross(vLeft-wpos, vBottom-wpos));
+	vec3 n2 = normalize(-cross(vRight-wpos, vTop-wpos));
+	vec3 n3 = normalize(cross(vLeft-wpos, vTop-wpos));
+	vec3 n4 = normalize(cross(vRight-wpos, vBottom-wpos));
+	normal = normalize((n1+n2+n3+n4)/4.0);
+	*/
+	normal = calculateNormal2(wpos);
+
+	vec3 light = normalize(vec3(-1, -1, 1));
+	vec3 light2 = normalize(vec3(1, -1, 1));
+	float c=max(dot(light , normal), 0.0)/2;
+	//c += max(dot(light2 , normal), 0.0)/2;
+	c = clamp(c*2+0.3, 0, 1);
+	//acolor = vec4(c,c,c,1);
+
+	gl_Position = gl_ProjectionMatrix * viewMatrix * wpos;	
+	//acolor = gl_Position;
+	/*
+	vec4 tPos = vec4(0.0, 0.0, 0.0, 0.0);
+	for (int i=0; i<4; i++)
+	{
+		if (int(bones[i])==-1) break;
+		tPos += weights[i] * (boneMatrices[int(bones[i])] * gl_Vertex);
+	}
+	wpos = gl_ProjectionMatrix * viewMatrix * tPos;
+	gl_Position = wpos;
+	acolor = weights + bones;
+	*/
+}

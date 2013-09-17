@@ -1,0 +1,49 @@
+uniform mat4 viewMatrix;
+uniform mat4 worldMatrix;
+uniform mat4 projMatrix;
+uniform vec4 diffuseColor;
+
+varying vec2 uv;
+varying vec3 normal;
+varying vec4 worldPosition;
+varying vec4 viewPosition;
+varying vec4 projPosition;
+
+#ifdef _PROC_TERRAIN_
+#pragma include "procterrain.vp"
+#elif defined(_SKIN_)
+#pragma include "skin.vp"
+#else // DEFAULT 
+vec4 getPosition()
+{
+	return worldMatrix * gl_Vertex;
+}
+vec4 getNormal()
+{
+	return normalize(worldMatrix * vec4(gl_Normal, 0));
+}
+vec2 getUV()
+{
+	return gl_TextureMatrix[0] * gl_MultiTexCoord0;
+}
+#endif
+
+#ifdef _SHADOW_CAST_
+#pragma include "vsm_cast.vp"
+#else
+#endif
+
+void main()
+{
+	worldPosition = getPosition();
+	viewPosition = viewMatrix * worldPosition;
+	gl_Position = projMatrix * viewPosition;
+	projPosition = gl_Position;
+	normal = getNormal();
+	uv = getUV();
+	#ifdef _SHADOW_CAST_
+	shadowCoord = biasMatrix * lightProjMatrix[0] * lightViewMatrix[0] * worldPosition;
+	lightViewPosition = lightViewMatrix[0] * (worldPosition / worldPosition.w);
+	#else
+	#endif
+}

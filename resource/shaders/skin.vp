@@ -1,0 +1,22 @@
+attribute vec4 boneWeights;
+attribute vec4 boneIds;
+uniform mat4 boneMatrices[32];
+
+vec4 getPosition()
+{
+	vec4 tPos = vec4(0.0, 0.0, 0.0, 0.0);
+	for (int i=0; i<4; i++)
+	{
+		if (int(boneIds[i])==-1) break;
+		tPos += boneWeights[i] * (boneMatrices[int(boneIds[i])] * gl_Vertex);
+	}
+	return tPos;
+}
+vec4 getNormal()
+{
+	return normalize(worldMatrix * vec4(gl_Normal, 0));
+}
+vec2 getUV()
+{
+	return gl_TextureMatrix[0] * gl_MultiTexCoord0;
+}

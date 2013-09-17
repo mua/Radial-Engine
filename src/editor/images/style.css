@@ -1,0 +1,347 @@
+/* Dark */
+
+QAbstractScrollArea {
+        background: #636363;
+}
+
+QWidget [widgetType="scrollareaContent"] {
+        background: #636363;
+}
+
+QGroupBox {
+        background: #636363;
+}
+
+*[mandatory='true'] {
+        background-color: qlineargradient(x1 : 1, y1 : 0, x2 : 0, y2 :   1, 
+                stop :   1.0 yellow,
+                stop : 0.4 lightyellow,
+                                stop :  0.0 white);
+}
+
+*[error='true'] {
+        border: 2px solid red;
+        border-radius: 2px;
+}
+
+QMenu {
+        background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 :   1, stop :   0.0 #f5f9ff,
+                     stop :   1.0 #636363);
+}
+
+QMenu::item:selected {
+        background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 :   1, stop :   0.0 #636363,
+                     stop :   1.0 #f5f9ff);
+        color:black;
+}
+
+QMenuBar {
+        background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 :   1, stop :   0.0 #f5f9ff, stop :   1.0 #636363);
+        color:black;
+        border-width: 1px; 
+        border-style: solid;
+        border-color: transparent transparent #e5e9ee transparent; 
+}
+
+QMenuBar:item {
+        background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 :   1, stop :   0.0 #f5f9ff,
+                     stop :   1.0 #636363);
+}
+
+QMenuBar::item:selected {
+        background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 :   1, stop :   0.0 #636363,
+                     stop :   1.0 #f5f9ff);
+        color:black;
+}
+
+QPushButton {
+        border: 2px solid #393939;
+        border-radius: 1px #393939;
+        padding: 5px 15px 2px 5px;
+        background: qradialgradient(cx : 0.5, cy : 0.5, radius : 0.5, fx : 0.3, fy : 0.3,
+                stop : 0 #848484, stop : 1 #575757);
+        color: #d6d6d6;
+}
+
+QPushButton:pressed {
+        background: qradialgradient(cx : 0.5, cy : 0.5, radius : 0.5, fx : 0.7, fy : 0.7,
+                stop : 0 #848484, stop : 1 #575757);
+}
+
+QCheckBox {
+        border: 0px;
+        border-radius: 0px;
+        background: #636363;
+        color: #d6d6d6;
+        spacing: 4px;
+}
+
+QRadioButton {
+        background: #636363;
+}
+
+QComboBox {
+        background: #575757;
+        border: 2px solid #393939;
+        border-radius: 1px #393939;
+        min-width: 6em;
+        padding: 0px 0px 0px 0px;
+        color: #d6d6d6;
+        selection-background-color: #566fcb;
+}
+
+QComboBox:on { /* shift the text when the popup opens */
+        padding-top: 3px;
+        padding-left: 4px;
+}
+
+QComboBox QAbstractItemView {
+        border: 2px solid #393939;
+        background: #575757;
+        selection-background-color: #566fcb;
+        color: #d6d6d6;
+}
+
+QComboBox::drop-down {
+        subcontrol-origin: padding;
+        subcontrol-position: top right;
+        width: 12px;
+        border-left-width: 1px;
+        border-left-color: #393939;
+        border-left-style: solid;
+        border-radius: 2px;
+        padding: 0px 0px 0px 0px;
+        color: #d6d6d6;
+        background-color: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1, stop : 0 #848484, stop :
+                1 #575757);
+}
+
+QComboBox::down-arrow {
+        image: url(/projekte/swtqt/de.compeople.scp.swt.qt.advancedstyler/icons/dark/dark_arrow_down.png);
+}
+
+QComboBox::down-arrow:on { /* shift the arrow when popup is open */
+        top: 1px;
+        left: 1px;
+}
+
+QLabel {
+        background-color: #636363;
+        color: #d6d6d6;
+}
+
+QListView {
+        border: 2px solid #393939;
+        border-radius: 1px #393939;
+        min-width: 6em;
+        padding: 0px 0px 0px 0px;
+        background: #575757;
+        color: #d6d6d6;
+        selection-background-color: #566fcb;
+        selection-color: #d6d6d6;
+}
+
+QTableView {
+        background: #575757;
+        border: 2px solid #393939;
+        border-radius: 0px;
+        padding: 0px 0px 0px 0px;
+        color: #d6d6d6;
+        selection-background-color: #566fcb;
+        selection-color: white;
+        gridline-color: #4f4f4f;
+}
+
+QTableView::item {
+        color:#d6d6d6;
+}
+
+QHeaderView {
+        border: 0px solid #393939;
+        color: #d6d6d6;
+        background-color: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1, stop : 0 #848484, stop :
+                1 #575757);
+}
+
+QHeaderView::section {
+        background-color: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1, stop : 0 #848484, stop :
+                1 #575757);
+        color: #d6d6d6;
+        padding-left: 0px;
+        border: 0px;
+}
+
+/*################# Scrollbar ################ */
+QScrollBar:vertical {
+        border: 1px solid #393939;
+        border-bottom: 0px;
+        border-top: 0px;
+        background-color: #8c8c8c;
+        width: 19px;
+        margin: 15px 0 15px 0;
+}
+
+QScrollBar::handle:vertical {
+        background-color: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1, stop : 0 #848484, stop :
+                1 #575757);
+        border-top: 1px solid #393939;
+        border-bottom: 1px solid #393939;
+        border-radius: 2px;
+        min-height: 20px;
+}
+
+QScrollBar::add-line:vertical {
+        border: 1px solid #393939;
+        border-radius: 2px;
+        background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1, stop : 0 #848484, stop :
+                1 #575757);
+        height: 15px;
+        subcontrol-position: bottom;
+        subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+        border: 1px solid #393939;
+        border-radius: 2px;
+        background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1, stop : 0 #848484, stop :
+                1 #575757);
+        height: 15px;
+        subcontrol-position: top;
+        subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:vertical {
+        background-image: url(/projekte/swtqt/de.compeople.scp.swt.qt.advancedstyler/icons/dark/dark_arrow_up.png);
+        background-position: center center;
+        background-repeat: no-repeat;
+}
+
+QScrollBar::down-arrow:vertical {
+        background-image: url(/projekte/swtqt/de.compeople.scp.swt.qt.advancedstyler/icons/dark/dark_arrow_down.png);
+        background-position: center center;
+        background-repeat: no-repeat;
+}
+
+QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical {
+        background: none;
+}
+
+/* ############### horizontal ################## */
+QScrollBar:horizontal {
+        border: 1px solid #393939;
+        border-left: 0px;
+        border-right: 0px;
+        background: #8c8c8c;
+        height: 19px;
+        margin: 0px 15px 0 15px;
+}
+
+QScrollBar::handle:horizontal {
+        background-color: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1, stop : 0 #848484, stop :
+                1 #575757);
+        border-left: 1px solid #555;
+        border-right: 1px solid #555;
+        border-radius: 2px;
+        min-width: 20px;
+        background-image: url(/projekte/swtqt/de.compeople.scp.swt.qt.advancedstyler/icons/dark/dark_handle.png);
+        /*background-image: url(icons/dark/dark_arrow_up.png);*/
+        background-position: center center;
+        background-repeat: no-repeat;
+}
+
+QScrollBar::add-line:horizontal {
+        border: 1px solid #393939;
+        border-radius: 2px;
+        border-right: 0px;
+        background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1, stop : 0 #848484, stop :
+                1 #575757);
+        width: 15px;
+        subcontrol-position: left;
+        subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+        border: 1px solid #393939;
+        border-radius: 2px;
+        background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1, stop : 0 #848484, stop :
+                1 #575757);
+        width: 15px;
+        subcontrol-position: right;
+        subcontrol-origin: margin;
+}
+
+QScrollBar::right-arrow:horizontal {
+        background-image: url(/projekte/swtqt/de.compeople.scp.swt.qt.advancedstyler/icons/dark/dark_arrow_left.png);
+        background-position: center center;
+        background-repeat: no-repeat;
+}
+
+QScrollBar::left-arrow:horizontal {
+        background-image: url(/projekte/swtqt/de.compeople.scp.swt.qt.advancedstyler/icons/dark/dark_arrow_right.png);
+        background-position: center center;
+        background-repeat: no-repeat;
+}
+
+QScrollBar::add-page:horizontal,QScrollBar::sub-page:horizontal {
+        background: none;
+}
+
+QLineEdit {
+        background: #575757;
+        border: 2px solid #393939;
+        border-radius: 1px #393939;
+        min-width: 6em;
+        padding: 0px 0px 0px 0px;
+        color: #d6d6d6;
+        selection-background-color: #566fcb;
+}
+
+QTreeWidget {
+        background: #575757;
+        border: 2px solid #393939;
+        border-radius: 0px;
+        padding: 0px 0px 0px 0px;
+        color: #d6d6d6;
+        selection-background-color: #566fcb;
+        gridline-color: #4f4f4f;
+}
+
+QHeaderView {
+        border: 0px solid #393939;
+        color: #d6d6d6;
+        background-color: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1, stop : 0 #848484, stop :
+                1 #575757);
+}
+
+
+QScrollBar:horizontal {
+        border: 0px;
+        border-radius: 0px;
+        background-color: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1, stop : 0 #848484, stop :
+                1 #575757);
+}
+
+QScrollBar:vertical {
+        border: 0px;
+        border-radius: 0px;
+        background-color: qlineargradient(x1 : 0, y1 : 0, x2 : 1, y2 : 0, stop : 0 #848484, stop :
+                1 #575757);
+}
+
+QScrollBar::add-page,QScrollBar::sub-page {
+        background: #8c8c8c;
+        border: 0px;
+        border-radius: 0px;
+}
+
+QScrollBar::left-arrow,QScrollBar::right-arrow {
+        image: url(dark_combo_arrow.png);
+        border: 0px;
+        border-radius: 0px;
+}
+
+QScrollBar::up-arrow,QScrollBar::down-arrow {
+        image: url(dark_combo_arrow.png);
+        border: 0px;
+        border-radius: 0px;
+}

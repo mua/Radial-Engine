@@ -1,0 +1,19 @@
+<RCC>
+  <qresource prefix="resources">
+    <file>add.png</file>
+    <file>delete.png</file>
+    <file>new.png</file>
+    <file>save.png</file>
+    <file>undo.png</file>
+    <file>redo.png</file>
+    <file>open.png</file>
+    <file>scale.png</file>
+    <file>move.png</file>
+    <file>rotate.png</file>
+    <file>select.png</file>
+    <file>map.png</file>
+  </qresource>
+  <qresource>
+    <file>style.css</file>
+  </qresource>
+</RCC>

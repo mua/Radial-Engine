@@ -1,0 +1,8 @@
+noperspective varying vec2 tex_coord;
+//noperspective in vec2 tex_coord;
+void main()
+{
+	gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+	tex_coord = gl_TexCoord[0].st;
+	gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;
+}

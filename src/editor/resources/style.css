@@ -1,0 +1,11 @@
+QWidget
+{
+    color: #FFFFFF;
+    background-color: #13263F;
+    border-color: #0E151C;
+}
+
+QTreeView
+{
+  alternate-background-color: #FF0000;
+}

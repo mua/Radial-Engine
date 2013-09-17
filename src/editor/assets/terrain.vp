@@ -1,0 +1,8 @@
+varying vec4 wpos;
+
+void main()
+{
+	gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+	gl_Position = gl_ProjectionMatrix * gl_ModelViewMatrix * gl_Vertex;
+	wpos = gl_ModelViewMatrix * gl_Vertex;
+}

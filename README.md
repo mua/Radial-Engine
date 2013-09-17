@@ -1,4 +1,4 @@
 Radial-Engine
 =============
 
-3D Game engine with editor(Qt) using OpenGL
+3D Game engine(C++, OpenGL) with an editor(Qt)

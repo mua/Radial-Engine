@@ -13,3 +13,7 @@ Radial-Engine
 - FBX asset files, auto sync
 - Entity inheritance on data level
 - JSON data format
+
+Authors
+
+This tool created by M. Utku Altinkaya: email: utkualtinkaya@gmail.com twitter: @utkua

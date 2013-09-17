@@ -3,6 +3,9 @@ Radial-Engine
 
 3D Game engine(C++, OpenGL) with an editor(Qt).
 
+Features
+--------
+
 - Skinned meshes
 - Texture splatting
 - Terrain editing
@@ -14,6 +17,7 @@ Radial-Engine
 - Entity inheritance on data level
 - JSON data format
 
-Authors
+Author
+------
 
-This tool created by M. Utku Altinkaya: email: utkualtinkaya@gmail.com twitter: @utkua
+This software created by M. Utku Altinkaya: email: utkualtinkaya@gmail.com twitter: @utkua

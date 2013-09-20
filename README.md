@@ -15,7 +15,7 @@ Features
 - Procedural terrain collider for physics
 - FBX asset files, auto sync
 - Entity inheritance on data level
-- JSON data format
+- Binary aware JSON data format
 
 Author
 ------

@@ -20,4 +20,4 @@ Features
 Author
 ------
 
-This software created by M. Utku Altinkaya: email: utkualtinkaya@gmail.com twitter: @utkua
+This software created by [M. Utku Altinkaya](http://mua.github.io/): email: utkualtinkaya@gmail.com twitter: @utkua
